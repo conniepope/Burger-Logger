@@ -11,12 +11,12 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: keys.password,
-    database: burgers_db
-})
+    database: "burgers_db"
+});
 
 connection.connect(function(err){
     if (err) throw err;
-    console.log("connected as id " + connection.threadID);
+    console.log("connected as id " + connection.threadId);
     // connection.end();
 });
 

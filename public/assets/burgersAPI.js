@@ -1,56 +1,22 @@
-<h1>Burgers to Devour!</h1>
 
-<div id="left">
-  <ul>
-    {{#each burgers}} 
-          {{#unless this.devoured}}
-    <li>
-      <p>
-        {{this.id}} {{this.burger_name}}
-
-        <button data-burgerid="{{this.id}}" class="devour">Devour!</button>
-      </p>
-    </li>
-        {{/unless}}
-    {{/each}}
-  </ul>
-</div>
-
-<div id="right">
-  <ul>
-     {{#each burgers}} 
-          {{#if this.devoured}}
-    <li>
-      <p>
-        {{this.id}} {{this.burger_name}}
-      </p>
-           {{/if}}
-    {{/each}}
-  </ul>
-</div>
-
-<h2>Add a new burger to eat!</h2>
-<form id="newBurger" class="button-size">
-  <textarea type="text" name="burger"></textarea>
-  <button type="submit">Save My Burger!</button>
-</form>
-
-<script type="text/javascript">
   $(".devour").on("click", function(event) {
     // Get the ID from the button.
     var id = $(this).data("burgerid");
 
+    var change = {
+        devoured: true
+    }
     // Send the PUT request.
     $.ajax("/api/burgers/" + id, {
       type: "PUT",
-      data: id
+      data: change
     }).then(
       function() {
         // move 'devoured' burger to right column -------------
         // make devoured = true for this.burger
-        this.devoured = true;
+        // this.devoured = true;
 
-        console.log("devoured: ", id);
+        console.log("devoured: ", change);
         // Reload the page to get the updated list
         location.reload();
       }
@@ -76,4 +42,3 @@
       }
     );
   });
-  </script>

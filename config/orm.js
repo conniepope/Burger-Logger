@@ -1,6 +1,29 @@
 var connection = require("../config/connection.js");
 
-// create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
+//--------------------------- borrowed code - look over to understand
+function objToSql(ob) {
+  var arr = [];
+
+  // loop through the keys and push the key/value as a string int arr
+  for (var key in ob) {
+    var value = ob[key];
+    // check to skip hidden properties
+    if (Object.hasOwnProperty.call(ob, key)) {
+      // if string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+      // e.g. {name: 'Lana Del Grey'} => ["name='Lana Del Grey'"]
+      // e.g. {sleepy: true} => ["sleepy=true"]
+      arr.push(key + "=" + value);
+    }
+  }
+
+  // translate array of strings to a single comma-separated string
+  return arr.toString();
+}
+//------------------------------
+// create the methods that will execute the necessary MySQL commands in the controllers. These are the methods needed in order to retrieve and store data in the database.
 var orm = {
   // selectAll()
     selectAll: function(colName, table) {
@@ -23,10 +46,16 @@ var orm = {
       })
     },
   // updateOne()
-    updateOne: function(table, colName, itemName) {
+    updateOne: function(table, objColVals, condition) {
       return new Promise(function(resolve, reject) {
-        var queryString = "UPDATE ?? SET ?? WHERE ?? = ?";
-        connection.query(queryString, [table, colName, colName, itemName], function(err, result) {
+        
+          var queryString = "UPDATE " + table;
+          queryString += " SET ";
+          queryString += objToSql(objColVals);
+          queryString += " WHERE ";
+          queryString += condition;
+      
+        connection.query(queryString, function(err, result) {
           if (err) reject(err);
           resolve(result);
         });
@@ -36,3 +65,5 @@ var orm = {
 
 // Export the ORM object.
 module.exports = orm;
+
+
