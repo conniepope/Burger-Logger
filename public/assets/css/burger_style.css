@@ -1,0 +1,39 @@
+#left {
+    float: left;
+}
+
+#right {
+    float: left;
+    margin-left: 20px;
+}
+
+#newBurger {
+    clear: both;
+    margin: 20px;
+    padding-top: 10px;
+}
+
+textarea {
+    width: 200px;
+}
+
+body {
+    background-color: lightgoldenrodyellow;
+    background-image: url("../img/burgers.jpg")
+}
+
+.container {
+    background-image: url("../img/burgerback.png");
+    width: 600px;
+    height: 800px;
+    margin: auto;
+    border: 8px double black;
+}
+
+h1 {
+    text-align: center;
+}
+
+.devour {
+    display: inline;
+}

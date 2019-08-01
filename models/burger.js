@@ -11,13 +11,12 @@ var burger = {
     },
 
     selectAll: function(){
-        return orm.selectAll("burger_name", "burgers");
+        return orm.selectAll("burgers");
     },
 
-    updateOne: function(objColVals, condition){
-        return orm.updateOne("burgers", objColVals, condition)
+    updateOne: function(condition){
+        return orm.updateOne("burgers", condition)
     }
-
 }
 
 module.exports = burger;
