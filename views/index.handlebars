@@ -46,7 +46,7 @@
 <script type=text/javascript>
 
   $(".devour").on("click", function(event) {
-      event.preventDefault();
+      //event.preventDefault();
       // Get the ID from the button.
       console.log("devoured button clicked");
 
@@ -57,7 +57,7 @@
     // PUT REQUEST IS NOT WORKING UNTIL PAGE IS REFRESHED.
       // Send the PUT request.
       $.ajax("/api/burgers/" + id, {
-      type: "PUT",
+      method: "PUT",
       }).then(
       function(data) {
 
